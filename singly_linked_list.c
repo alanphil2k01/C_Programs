@@ -22,23 +22,29 @@ void insertAfterNode(int item){
     int val;
     newNode->data=item;
     newNode->link=NULL;
-    if(start==NULL)
+    if(start==NULL){
+        printf("List Empty. Adding Item as Start of List.\n");
         start=newNode;
+    }
     else{
         printf("Enter Item after which New Item must be Inserted:");
         scanf("%d",&val);
-		while((loc!=NULL) && (loc->data!=val))
+		while((loc->link!=NULL) && (loc->data!=val))
 			loc=loc->link;
+        if(loc->data!=val) printf("Did not find item. Inserting to the end of List.\n");
 		newNode->link = loc->link;
 		loc->link = newNode;
     }
 }
 
 void insertEnd(int item){
-    struct node *newNode = malloc(sizeof(struct node));
+    struct node *newNode = malloc(sizeof(struct node)),*loc=start;
     newNode->data=item;
     newNode->link=NULL;
-    struct node *loc=start;
+    if(start==NULL){
+        start=newNode;
+        return;
+    }
     while(loc->link!=NULL)
         loc=loc->link;
     loc->link=newNode;
