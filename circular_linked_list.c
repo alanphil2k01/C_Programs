@@ -71,17 +71,15 @@ void deleteNode(int item){
         if(loc->next==start && loc->data!=item)
             printf("Failed to find Item.\n");
         else if(loc==start){
-            if(loc->next==start) 
+            if(loc->next==start){
                 start=NULL;
-            else{
-                start=loc->next;
-                start->prev=loc->prev;
+                return;
             }
+            else
+                start=loc->next;
         }
-        else {
-            (loc->prev)->next=loc->next;
-            (loc->next)->prev=loc->prev;
-        }
+        (loc->prev)->next=loc->next;
+        (loc->next)->prev=loc->prev;
     }
 }
 
