@@ -3,7 +3,7 @@
 
 int isFault() {
     int r = rand()%10;
-    return (r>7);
+    return (r > 8);
 }
 
 int main() {
@@ -30,7 +30,7 @@ int main() {
     listen(s_fd, 10);
 
     c_fd = accept(s_fd, (struct sockaddr*) &addr, &len);
-    struct timeval timeout = { 5, 0 };
+    struct timeval timeout = { 1, 0 };
     setsockopt(c_fd, SOL_SOCKET, SO_RCVTIMEO, (char*) &timeout, sizeof(timeout));
 
     char msg[50] = "MSG: ";
@@ -83,6 +83,5 @@ int main() {
             }
         }
     }
-
     close(s_fd);
 }

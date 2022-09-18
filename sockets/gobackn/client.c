@@ -1,11 +1,6 @@
 #include "common.h"
 #include <math.h>
 
-int isFault() {
-    int r = rand()%10;
-    return (r>7);
-}
-
 int main() {
     srand(time(NULL));
 
@@ -33,11 +28,11 @@ int main() {
     int expected = 0;
     int num_frames = 0;
     while(num_frames < NUM_OF_FRAMES) {
+        bzero(buf, MAX);
         if (recv(c_fd, &buf, MAX, 0)) {
-            printf("Received %s\n", buf);
             int n = buf[strlen(buf) - 1] - '0';
             if (n == expected) {
-                printf("Received %s\n", msg);
+                printf("Received %s\n", buf);
                 expected = (expected + 1) % seq;
                 bzero(buf, MAX);
                 strncpy(buf, msg, 5);
@@ -50,8 +45,8 @@ int main() {
                 printf("Expected %d, got %d\n", expected, n);
             }
         }
-        usleep(800);
         printf("-------------------------------------------\n");
+        usleep(100*1000);
     }
 
     close(c_fd);
