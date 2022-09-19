@@ -66,7 +66,7 @@ int main() {
             recv(c_fd, buf, MAX, 0);
             printf("Received -> %s\n", buf);
             int n = buf[strlen(buf) - 1] - '0';
-            if (strncmp(buf, "ACK", 3) == 0) {
+            if (strncmp(buf, "ACK", 3) == 0 && !window[i]) {
                 window[i] = 1;
                 num_frames++;
             } else if (strncmp(buf, "NAK", 3) == 0 && !window[i]) {
